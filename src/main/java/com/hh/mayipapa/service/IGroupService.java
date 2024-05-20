@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IGroupService {
     List<Group> getAllGroup();
+
+    int insertGroup(Group group);
 }

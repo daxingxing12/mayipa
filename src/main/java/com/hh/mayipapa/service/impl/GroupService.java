@@ -17,4 +17,9 @@ public class GroupService implements IGroupService{
     public List<Group> getAllGroup(){
         return mapper.selectAllGroup();
     }
+
+
+
+    @Override
+    public int insertGroup(Group group){return mapper.insertGroup(group);}
 }
