@@ -39,4 +39,19 @@ public class PuserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
+    @PostMapping("register")
+    public ResponseEntity<Object> register(@RequestBody Puser puser) {
+        if(puserService.checkLogin(puser.getPname())!=null){
+            return ResponseEntity.badRequest().body("用户名已存在");
+        }
+        else{
+            int result = puserService.save(puser);
+            // 根据result的值返回相应的HTTP响应
+            if (result > 0) {
+                return ResponseEntity.ok("用户注册成功");
+            } else {
+                return ResponseEntity.badRequest().body("用户注册失败");
+            }
+        }
+    }
 }

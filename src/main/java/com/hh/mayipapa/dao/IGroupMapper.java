@@ -1,6 +1,7 @@
 package com.hh.mayipapa.dao;
 
 import com.hh.mayipapa.entity.Group;
+import com.hh.mayipapa.entity.UserGroup;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -12,9 +13,17 @@ public interface IGroupMapper {
     @Select("select * from touristgroup")
     List<Group> selectAllGroup();
 
-    @Insert("INSERT INTO touristgroup (GuideName, GuidId, EndTime, StartTime, origin, publisher, " +
-            "ReleaseTime, deadline, NumberOfPeople, cost, tid) " +
-            "VALUES (#{guideName}, #{guidId}, #{endTime}, #{startTime}, #{origin}, #{publisher}, " +
-            "#{releaseTime}, #{deadline}, #{numberOfPeople}, #{cost}, #{tid})")
+    @Insert("INSERT INTO touristgroup (tid, pid,origin, StartTime, EndTime, GuideName, NumberOfPeople, GuideId, " +
+            "publisher, ReleaseTime, deadline, cost, img, status, GuideStatus ) VALUES (" +
+            "#{tid},#{pid}, #{origin}, #{startTime}, #{endTime}, #{guideName}, #{numberOfPeople}, #{guidId}, #{publisher}, " +
+            "#{releaseTime}, #{deadline}, #{cost}, #{img}, #{status}, #{guideStatus} )")
     int insertGroup(Group group);
+
+    @Select("select * from touristgroup where guideId = #{sid}")
+    List<Group> selectByGuideId(String sid);
+    @Select("select * from touristgroup where tid = #{tid}")
+    Group selectByTid(String tid);
+
+    @Insert("INSERT INTO users_pingtuan (pname, tid, TouristGroupName) VALUES (#{pname}, #{tid}, #{touristGroupName})")
+    int insertUserGroup(UserGroup userGroup);
 }

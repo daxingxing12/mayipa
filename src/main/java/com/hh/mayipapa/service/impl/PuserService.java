@@ -14,4 +14,7 @@ public class PuserService {
     public String checkLogin(String pname) {
         return mapper.checkLogin(pname);
     }
+    public int save(Puser puser){
+        return mapper.insertPuser(puser);
+    }
 }
