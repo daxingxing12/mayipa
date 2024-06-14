@@ -12,4 +12,6 @@ public interface IGroupService {
     List<Group> selectByGuideId(String sid);
     Group selectByTid(String tid);
     int insertUserGroup(UserGroup userGroup);
+    int updateGroup(String group,String tid);
+
 }

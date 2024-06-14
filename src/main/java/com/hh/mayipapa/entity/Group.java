@@ -21,4 +21,5 @@ public class Group {
     private String GuideStatus;
     private String pname;
     private String detail;
+    private String reason;
 }

@@ -5,6 +5,7 @@ import com.hh.mayipapa.entity.UserGroup;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public interface IGroupMapper {
 
     @Insert("INSERT INTO users_pingtuan (pname, tid, TouristGroupName) VALUES (#{pname}, #{tid}, #{touristGroupName})")
     int insertUserGroup(UserGroup userGroup);
+    //修改数据库touristgroup里guidestatus的值为前端传来的值
+    @Update("update touristgroup set guideStatus = #{value} where tid = #{tid}")
+    int updateGroupStatus(String value,String tid);
 }
