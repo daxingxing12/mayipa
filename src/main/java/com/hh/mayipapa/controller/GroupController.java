@@ -47,6 +47,7 @@ public class GroupController {
         group.setNumberOfPeople(credentials.getOrDefault("NumberOfPeople", null));
         group.setCost(credentials.getOrDefault("cost", null));
 
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         String currentTime = sdf.format(new Date());
         String tid = currentTime;
@@ -66,8 +67,10 @@ public class GroupController {
     }
 
     @PostMapping("invite")
-    public List<Group> invite(@RequestBody Suser suser){
-        return groupservice.selectByGuideId(suser.getSname());
+    public List<Group> invite(@RequestBody Map<String, String> credentials){
+//        Suser s=new Suser();
+//        s.getSid(credentials.getOrDefault("sid", null));
+        return groupservice.selectByGuideId(credentials.getOrDefault("sid", null));
         }
 
     @PostMapping("detail")
@@ -98,5 +101,21 @@ public class GroupController {
             return ResponseEntity.badRequest().body("预定失败：未知错误");
         }
     }
+    @PostMapping("update")
+    public ResponseEntity<?> update(@RequestBody Map<String, String> credentials) {
+        Group group = new Group(); // 假设Group是您的实体类
 
-}
+        // 手动从credentials Map中映射数据到Group对象
+        group.setGuideStatus(credentials.getOrDefault("value", null));
+        group.setTid(credentials.getOrDefault("tid", null));
+
+
+        int status = groupservice.updateGroup(group.getGuideStatus(),group.getTid());
+        if (status != 0) {
+            return ResponseEntity.ok("更新成功");
+        } else {
+            // 如果 service 返回 0 表示更新失败，但通常 service 应该抛出异常
+            return ResponseEntity.badRequest().body("更新失败：内部错误");
+        }
+    }
+    }

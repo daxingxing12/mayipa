@@ -32,4 +32,8 @@ public class GroupService implements IGroupService{
     @Override
     public int insertUserGroup(UserGroup userGroup){return mapper.insertUserGroup(userGroup);}
 
+    @Override
+    public int updateGroup(String value,String tid){return mapper.updateGroupStatus(value,tid);};
+
+
 }
